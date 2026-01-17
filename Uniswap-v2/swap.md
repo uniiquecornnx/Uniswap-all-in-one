@@ -38,8 +38,16 @@ getAmonutIn(): for a particular output how much input is supposed to be put in
 
 
 
-Functions from UniswapV2Library.sol
+Conclusion
 
-1. getAmountsOut & getAmountsIn
+1. swapTokensForExactTokens() 
+                              
+2. swapExactTokensforTokens()  
 
-3. getAmountOut()
+-> in both these functions we internally call a function called _swap() and inside it we call IuniswapV2Pair(UniswapV2Library.pairFor(factory, input, output)).swap(), which is inside UniswapV2Pair.sol
+
+Inside the function swap(), there is no input of how much token have we put in - and to calculate that we are interanlly taking the differnece of the total pool(using getReserve) and the amount out 
+
+> if the  actual balance > new internal balance then the difference will be the actual balance and the new internal balance 
+uint amount0In = balance0 > _reserve0 - amount0Out ? balance0 = (_reserve0 - amount0Out) : 0;
+uint amount1In = balance1 > _reserve1 - amount1Out ? balance1 = (_reserve1 - amount1Out) : 0;
