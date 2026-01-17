@@ -25,6 +25,19 @@ getAmountOut() = use the previous output for a particular input
 
 3. swapTokensForExactTokens(uint amountOut, uint amountInMax, address[] calldata path, address to, uint daedline)  : user wants a minimium input for some specified output
 
+//How it works?: It calls a function UniswapV2Library.getAmountsIn > then transfers the amount to the Pair contract by calling the function pairFor > and then _swap is called
+
+4. getAmountsIn(address factory, uint amountOut, address[] memory path) interanl view returns (uint): performs chained getAmountIn calculations on any number of pairs
+
+//Internal functions: 
+getAmonutIn(): for a particular output how much input is supposed to be put in
+
+> uint numerator = reserveIn.mul(amountOut).mul(1000);
+> uint denominator = reserveOut.sub(aountOut).mul(997);
+> amountIn = (numerator/denominator).add(1);
+
+
+
 Functions from UniswapV2Library.sol
 
 1. getAmountsOut & getAmountsIn
